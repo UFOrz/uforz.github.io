@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://uforz.com</id>
     <title>UFOrz</title>
-    <updated>2022-01-24T13:07:28.735Z</updated>
+    <updated>2022-01-24T14:02:52.141Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://uforz.com"/>
     <link rel="self" href="https://uforz.com/atom.xml"/>
@@ -10,6 +10,51 @@
     <logo>https://uforz.com/images/avatar.png</logo>
     <icon>https://uforz.com/favicon.ico</icon>
     <rights>All rights reserved 2022, UFOrz</rights>
+    <entry>
+        <title type="html"><![CDATA[Gridea主题NexT无法正常使用Valine的解决办法]]></title>
+        <id>https://uforz.com/post/next-valine/</id>
+        <link href="https://uforz.com/post/next-valine/">
+        </link>
+        <updated>2022-01-24T13:58:23.000Z</updated>
+        <summary type="html"><![CDATA[<p>疲于折腾，所以最近准备使用优雅的Gridea写博客，看中了<a href="https://github.com/hsxyhao/gridea-theme-next">NexT主题</a>和<a href="https://github.com/imhanjie/gridea-theme-pure">Pure主题</a>，但是发现一个问题，就是主题自带的Valine评论系统不能正常启用，使用的是LeanCloud国际版，查看浏览器控制台，会发现报错信息“us.leancloud.cn无法找到”，解决办法是在Valine的配置文件中增加一行：</p>
+<pre><code>
+serverURLs:'https://XXXXXXXX.api.lncldglobal.com', #把网址换成你自己的REST API服务器地址
+
+</code></pre>
+]]></summary>
+        <content type="html"><![CDATA[<p>疲于折腾，所以最近准备使用优雅的Gridea写博客，看中了<a href="https://github.com/hsxyhao/gridea-theme-next">NexT主题</a>和<a href="https://github.com/imhanjie/gridea-theme-pure">Pure主题</a>，但是发现一个问题，就是主题自带的Valine评论系统不能正常启用，使用的是LeanCloud国际版，查看浏览器控制台，会发现报错信息“us.leancloud.cn无法找到”，解决办法是在Valine的配置文件中增加一行：</p>
+<pre><code>
+serverURLs:'https://XXXXXXXX.api.lncldglobal.com', #把网址换成你自己的REST API服务器地址
+
+</code></pre>
+<!-- more -->
+<p>具体地址可以通过LeanCloud的“设置-应用凭证-服务器地址-REST API服务器地址”找到。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[使用CloudFlare免费加速GitHub Pages博客]]></title>
+        <id>https://uforz.com/post/fast-github-page-with-cloudflare/</id>
+        <link href="https://uforz.com/post/fast-github-page-with-cloudflare/">
+        </link>
+        <updated>2022-01-24T13:26:53.000Z</updated>
+        <summary type="html"><![CDATA[<p>怎么建立GitHub Pages博客就不再赘述，Google一下有很多教程，因为特殊的网络环境，我们可能需要CloudFlare加速博客的访问，虽然CloudFlare也不太稳定，但聊胜于无。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>怎么建立GitHub Pages博客就不再赘述，Google一下有很多教程，因为特殊的网络环境，我们可能需要CloudFlare加速博客的访问，虽然CloudFlare也不太稳定，但聊胜于无。</p>
+<!-- more -->
+<p>首先您需要准备一个顶级域名，并在GitHub Pages后台进行绑定，修改域名后台ns记录为CloudFlare的ns记录：</p>
+<pre><code>NS	eva.ns.cloudflare.com
+NS	gerald.ns.cloudflare.com
+</code></pre>
+<p>然后，通过CloudFlare解析顶级域名A记录到下面地址：</p>
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre>
+<p>正常情况下，只要解析生效，CloudFlare就已经帮你搞定了CDN加速。</p>
+<p>如果需要 SSL/TLS 严格加密模式，可以在解析A记录时暂时将<strong>代理状态</strong>禁用，也就是暂时禁用CDN，解析生效后，在GitHub Pages后台开启Enforce HTTPS ，待Github Pages的https生效后，再将CloudFlare的<strong>代理状态</strong>启用即可。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[写给家乡：离开是为了有尊严的活着]]></title>
         <id>https://uforz.com/post/write-to-hometown/</id>

@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - UFOrz</title>
+<title>使用CloudFlare免费加速GitHub Pages博客 | UFOrz</title>
 
 <link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1643032968335">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -94,14 +94,48 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
-                <div class="post-content">
+                <h2 class="post-title">
+                    使用CloudFlare免费加速GitHub Pages博客
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-01-24 ·
+                    </time>
                     
+                </div>
+                <div class="post-content">
+                    <p>怎么建立GitHub Pages博客就不再赘述，Google一下有很多教程，因为特殊的网络环境，我们可能需要CloudFlare加速博客的访问，虽然CloudFlare也不太稳定，但聊胜于无。</p>
+<!-- more -->
+<p>首先您需要准备一个顶级域名，并在GitHub Pages后台进行绑定，修改域名后台ns记录为CloudFlare的ns记录：</p>
+<pre><code>NS	eva.ns.cloudflare.com
+NS	gerald.ns.cloudflare.com
+</code></pre>
+<p>然后，通过CloudFlare解析顶级域名A记录到下面地址：</p>
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre>
+<p>正常情况下，只要解析生效，CloudFlare就已经帮你搞定了CDN加速。</p>
+<p>如果需要 SSL/TLS 严格加密模式，可以在解析A记录时暂时将<strong>代理状态</strong>禁用，也就是暂时禁用CDN，解析生效后，在GitHub Pages后台开启Enforce HTTPS ，待Github Pages的https生效后，再将CloudFlare的<strong>代理状态</strong>启用即可。</p>
+
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://uforz.com/post/write-to-hometown/" class="post-title gt-a-link">
+                    写给家乡：离开是为了有尊严的活着
+                </a>
+            </div>
+        
+
+        
+
         
 
         
@@ -133,7 +167,6 @@
 </script>
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first">我对这个世界有哀愁，就如我对这个世界的缱绻深情一样</div>
