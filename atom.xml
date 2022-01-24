@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://uforz.github.io</id>
+    <id>https://uforz.com</id>
     <title>UFOrz</title>
-    <updated>2022-01-24T12:29:11.622Z</updated>
+    <updated>2022-01-24T12:53:29.062Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://uforz.github.io"/>
-    <link rel="self" href="https://uforz.github.io/atom.xml"/>
+    <link rel="alternate" href="https://uforz.com"/>
+    <link rel="self" href="https://uforz.com/atom.xml"/>
     <subtitle>我对这个世界有哀愁，就如我对这个世界的缱绻深情一样</subtitle>
-    <logo>https://uforz.github.io/images/avatar.png</logo>
-    <icon>https://uforz.github.io/favicon.ico</icon>
+    <logo>https://uforz.com/images/avatar.png</logo>
+    <icon>https://uforz.com/favicon.ico</icon>
     <rights>All rights reserved 2022, UFOrz</rights>
     <entry>
         <title type="html"><![CDATA[写给家乡：离开是为了有尊严的活着]]></title>
-        <id>https://uforz.github.io/post/xie-gei-jia-xiang-chi-kai-shi-wei-liao-you-zun-yan-de-huo-zhao/</id>
-        <link href="https://uforz.github.io/post/xie-gei-jia-xiang-chi-kai-shi-wei-liao-you-zun-yan-de-huo-zhao/">
+        <id>https://uforz.com/post/xie-gei-jia-xiang-chi-kai-shi-wei-liao-you-zun-yan-de-huo-zhao/</id>
+        <link href="https://uforz.com/post/xie-gei-jia-xiang-chi-kai-shi-wei-liao-you-zun-yan-de-huo-zhao/">
         </link>
         <updated>2022-01-24T10:19:55.000Z</updated>
         <summary type="html"><![CDATA[<p><strong>阳光<br>
@@ -79,8 +79,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello World Again]]></title>
-        <id>https://uforz.github.io/post/hello-world-again/</id>
-        <link href="https://uforz.github.io/post/hello-world-again/">
+        <id>https://uforz.com/post/hello-world-again/</id>
+        <link href="https://uforz.com/post/hello-world-again/">
         </link>
         <updated>2022-01-13T13:00:14.000Z</updated>
         <summary type="html"><![CDATA[<p>第一次写独立博客用的是Wordpress，示例页面的内容让人印象深刻，因为每次重装都会看到：</p>
