@@ -4,9 +4,9 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>定时运行Python，实现某网站自动登陆，以赚取积分 | UFOrz</title>
+<title>Windows定时运行Python，实现某网站自动登陆，以赚取积分 | UFOrz</title>
 
-<link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1643296273572">
+<link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1643327620992">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://uforz.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1643296273572" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1643327620992" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -97,7 +97,7 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    定时运行Python，实现某网站自动登陆，以赚取积分
+                    Windows定时运行Python，实现某网站自动登陆，以赚取积分
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
@@ -110,9 +110,7 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>Edge浏览器打开网站登陆界面，按F12调出控制台，在网络选项的筛选器输入&quot;method:POST&quot;<br>
-输入账号密码，点击登陆，查看网络选项里的“请求URL”，确认Content-Type是application/json<br>
-查看“PayLoad”选项里的表单数据，应该包含用户名和密码</p>
+                    <p>Edge浏览器打开网站登陆界面，按F12调出控制台，在网络选项的筛选器输入&quot;method:POST&quot;，输入账号密码，点击登陆，查看网络选项里的“请求URL”，确认Content-Type是application/json，查看“PayLoad”选项里的表单数据，应该包含用户名和密码。</p>
 <!-- more -->
 <p>根据上述信息，构造Python代码如下：</p>
 <pre><code>import json
@@ -130,7 +128,8 @@ print_log = open(&quot;E:\login\log.txt&quot;,'a')
 print(&quot;请求耗时：{0}, 状态码：{1}, 结果：{2}&quot;.format(datetime.datetime.now(),result.status_code,result.text),file = print_log)
 print_log.close()
 </code></pre>
-<p>使用新建个文本文档，添加如下内容，将后缀改为.bat，修改文本种路径为你的Python所在路径</p>
+<p>新建个日志文本文档“log.txt”，放到Python程序目录，用于存放运行日志，<br>
+新建个文本文档，添加如下内容，将后缀改为.bat，修改文本种路径为你的Python程序所在路径</p>
 <pre><code>@echo off
 E:
 cd E:\login
