@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Gridea主题NexT无法正常使用Valine的解决办法 | UFOrz</title>
+<title>定时运行Python，实现某网站自动登陆，以赚取积分 | UFOrz</title>
 
 <link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1643296273572">
 
@@ -97,30 +97,48 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Gridea主题NexT无法正常使用Valine的解决办法
+                    定时运行Python，实现某网站自动登陆，以赚取积分
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2022-01-24 ·
+                        · 2022-01-27 ·
                     </time>
                     
-                        <a href="https://uforz.com/tag/yiHEYDDxr/" class="post-tags">
-                            # valine
-                        </a>
-                    
-                        <a href="https://uforz.com/tag/Th2Jv0FAIa/" class="post-tags">
-                            # gridea
+                        <a href="https://uforz.com/tag/oh1b5co-B/" class="post-tags">
+                            # python
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>疲于折腾，所以最近准备使用优雅的Gridea写博客，看中了<a href="https://github.com/hsxyhao/gridea-theme-next">NexT主题</a>和<a href="https://github.com/imhanjie/gridea-theme-pure">Pure主题</a>，但是发现一个问题，就是主题自带的Valine评论系统不能正常启用，使用的是LeanCloud国际版，查看浏览器控制台，会发现报错信息“us.leancloud.cn无法找到”，解决办法是在Valine的配置文件中增加一行：</p>
-<pre><code>
-serverURLs:'https://XXXXXXXX.api.lncldglobal.com', #把网址换成你自己的REST API服务器地址
-
-</code></pre>
+                    <p>Edge浏览器打开网站登陆界面，按F12调出控制台，在网络选项的筛选器输入&quot;method:POST&quot;<br>
+输入账号密码，点击登陆，查看网络选项里的“请求URL”，确认Content-Type是application/json<br>
+查看“PayLoad”选项里的表单数据，应该包含用户名和密码</p>
 <!-- more -->
-<p>具体地址可以通过LeanCloud的“设置-应用凭证-服务器地址-REST API服务器地址”找到。</p>
+<p>根据上述信息，构造Python代码如下：</p>
+<pre><code>import json
+import requests
+import datetime
+
+data = {'username':'你的用户名','password':'你的密码'}
+json_data = json.dumps(data) 
+result = requests.post(url='https://www.替换成你的网址.com:10065/sys/login/pc',data=json_data,headers={'Content-Type':'application/json'})
+
+ #定义运行日志的路径
+print_log = open(&quot;E:\login\log.txt&quot;,'a')
+
+  #输出运行日志
+print(&quot;请求耗时：{0}, 状态码：{1}, 结果：{2}&quot;.format(datetime.datetime.now(),result.status_code,result.text),file = print_log)
+print_log.close()
+</code></pre>
+<p>使用新建个文本文档，添加如下内容，将后缀改为.bat，修改文本种路径为你的Python所在路径</p>
+<pre><code>@echo off
+E:
+cd E:\login
+start python login.py
+</code></pre>
+<p>在windows的计划任务里添加定时任务，比如每日8：00运行上述bat文件：<br>
+路径：此电脑右键&gt;管理&gt;系统工具&gt;任务计划程序&gt;任务计划程序库&gt;窗口右侧“创建基本任务”</p>
+<p>理论上，完成以上操作，即可实现每日8：00登陆一次网站以实现赚取积分。</p>
 
                 </div>
             </article>
@@ -129,8 +147,8 @@ serverURLs:'https://XXXXXXXX.api.lncldglobal.com', #把网址换成你自己的R
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://uforz.com/post/fast-github-page-with-cloudflare/" class="post-title gt-a-link">
-                    使用CloudFlare免费加速GitHub Pages博客
+                <a href="https://uforz.com/post/next-valine/" class="post-title gt-a-link">
+                    Gridea主题NexT无法正常使用Valine的解决办法
                 </a>
             </div>
         
