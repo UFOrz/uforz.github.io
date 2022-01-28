@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - UFOrz</title>
+<title>宝塔面板定时执行Python，自动登录网站，赚取积分 | UFOrz</title>
 
 <link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1643329727677">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -94,14 +94,57 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
-                <div class="post-content">
+                <h2 class="post-title">
+                    宝塔面板定时执行Python，自动登录网站，赚取积分
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-01-28 ·
+                    </time>
                     
+                </div>
+                <div class="post-content">
+                    <p>代码参考上篇文章<a href="/post/python-auto-login-website/">《Windows定时运行Python，实现某网站自动登陆，以赚取积分》</a><br>
+在某个目录新建python脚本和log.txt日志文件，python脚本如下：</p>
+<!-- more -->
+<pre><code># -*- coding: UTF-8 -*-
+import json
+import requests
+import datetime
+
+data = {'username':'你的用户名','password':'你的密码'}
+json_data = json.dumps(data) 
+result = requests.post(url='https://www.你的登录网址.com:10065/sys/login/pc',data=json_data,headers={'Content-Type':'application/json'})
+
+ #定义运行日志的路径
+print_log = open(&quot;/www/wwwroot/你的python程序目录/log.txt&quot;,'a')
+
+  #输出运行日志
+print(&quot;请求耗时：{0}, 状态码：{1}, 结果：{2}&quot;.format(datetime.datetime.now(),result.status_code,result.text),file = print_log)
+print_log.close()
+</code></pre>
+<p>宝塔面板添加计划任务，任务类型“shell脚本”，执行周期“每天 8小时 0分钟”<br>
+宝塔面板默认python版本是2.7.5，存在兼容性问题，但执行btpython是3.7.9，所以脚本内容：</p>
+<pre><code>btpython /www/wwwroot/替换你的python程序目录/login.py
+</code></pre>
+
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://uforz.com/post/python-auto-login-website/" class="post-title gt-a-link">
+                    Windows定时运行Python，实现某网站自动登陆，以赚取积分
+                </a>
+            </div>
+        
+
+        
+
         
 
         
@@ -133,7 +176,6 @@
 </script>
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first">我对这个世界有哀愁，就如我对这个世界的缱绻深情一样</div>

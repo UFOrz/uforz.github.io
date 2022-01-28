@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://uforz.com</id>
     <title>UFOrz</title>
-    <updated>2022-01-27T23:55:26.368Z</updated>
+    <updated>2022-01-28T00:29:02.973Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://uforz.com"/>
     <link rel="self" href="https://uforz.com/atom.xml"/>
@@ -10,6 +10,40 @@
     <logo>https://uforz.com/images/avatar.png</logo>
     <icon>https://uforz.com/favicon.ico</icon>
     <rights>All rights reserved 2022, UFOrz</rights>
+    <entry>
+        <title type="html"><![CDATA[宝塔面板定时执行Python，自动登录网站，赚取积分]]></title>
+        <id>https://uforz.com/post/bt-python-auto-login-website/</id>
+        <link href="https://uforz.com/post/bt-python-auto-login-website/">
+        </link>
+        <updated>2022-01-28T00:15:45.000Z</updated>
+        <summary type="html"><![CDATA[<p>代码参考上篇文章<a href="/post/python-auto-login-website/">《Windows定时运行Python，实现某网站自动登陆，以赚取积分》</a><br>
+在某个目录新建python脚本和log.txt日志文件，python脚本如下：</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>代码参考上篇文章<a href="/post/python-auto-login-website/">《Windows定时运行Python，实现某网站自动登陆，以赚取积分》</a><br>
+在某个目录新建python脚本和log.txt日志文件，python脚本如下：</p>
+<!-- more -->
+<pre><code># -*- coding: UTF-8 -*-
+import json
+import requests
+import datetime
+
+data = {'username':'你的用户名','password':'你的密码'}
+json_data = json.dumps(data) 
+result = requests.post(url='https://www.你的登录网址.com:10065/sys/login/pc',data=json_data,headers={'Content-Type':'application/json'})
+
+ #定义运行日志的路径
+print_log = open(&quot;/www/wwwroot/你的python程序目录/log.txt&quot;,'a')
+
+  #输出运行日志
+print(&quot;请求耗时：{0}, 状态码：{1}, 结果：{2}&quot;.format(datetime.datetime.now(),result.status_code,result.text),file = print_log)
+print_log.close()
+</code></pre>
+<p>宝塔面板添加计划任务，任务类型“shell脚本”，执行周期“每天 8小时 0分钟”<br>
+宝塔面板默认python版本是2.7.5，存在兼容性问题，但执行btpython是3.7.9，所以脚本内容：</p>
+<pre><code>btpython /www/wwwroot/替换你的python程序目录/login.py
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Windows定时运行Python，实现某网站自动登陆，以赚取积分]]></title>
         <id>https://uforz.com/post/python-auto-login-website/</id>
