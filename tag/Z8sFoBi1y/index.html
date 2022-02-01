@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Windows定时运行Python，实现某网站自动登陆，以赚取积分 | UFOrz</title>
+<title>FCPX | UFOrz</title>
 
 <link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1643699418217">
 
@@ -25,11 +25,11 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
-    <nav class="navbar navbar-expand-lg">
+    <div class="main-content">
+        <nav class="navbar navbar-expand-lg">
     <div class="navbar-brand">
         <img class="user-avatar" src="/images/avatar.png" alt="头像">
         <div class="site-name gt-c-content-color-first">
@@ -93,98 +93,45 @@
     </div>
 </nav>
 
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    Windows定时运行Python，实现某网站自动登陆，以赚取积分
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        · 2022-01-27 ·
-                    </time>
-                    
-                        <a href="https://uforz.com/tag/oh1b5co-B/" class="post-tags">
-                            # python
-                        </a>
-                    
-                </div>
-                <div class="post-content">
-                    <p>Edge浏览器打开网站登陆界面，按F12调出控制台，在网络选项的筛选器输入&quot;method:POST&quot;，输入账号密码，点击登陆，查看网络选项里的“请求URL”，确认Content-Type是application/json，查看“PayLoad”选项里的表单数据，应该包含用户名和密码。</p>
-<!-- more -->
-<p>根据上述信息，构造Python代码如下：</p>
-<pre><code>import json
-import requests
-import datetime
-
-data = {'username':'你的用户名','password':'你的密码'}
-json_data = json.dumps(data) 
-result = requests.post(url='https://www.替换成你的网址.com:10065/sys/login/pc',data=json_data,headers={'Content-Type':'application/json'})
-
- #定义运行日志的路径
-print_log = open(&quot;E:\login\log.txt&quot;,'a')
-
-  #输出运行日志
-print(&quot;请求耗时：{0}, 状态码：{1}, 结果：{2}&quot;.format(datetime.datetime.now(),result.status_code,result.text),file = print_log)
-print_log.close()
-</code></pre>
-<p>新建个日志文本文档“log.txt”，放到Python程序目录，用于存放运行日志，<br>
-新建个文本文档，添加如下内容，将后缀改为.bat，修改文本种路径为你的Python程序所在路径</p>
-<pre><code>@echo off
-E:
-cd E:\login
-start python login.py
-</code></pre>
-<p>在windows的计划任务里添加定时任务，比如每日8：00运行上述bat文件：<br>
-路径：此电脑右键&gt;管理&gt;系统工具&gt;任务计划程序&gt;任务计划程序库&gt;窗口右侧“创建基本任务”</p>
-<p>理论上，完成以上操作，即可实现每日8：00登陆一次网站以实现赚取积分。</p>
-
-                </div>
-            </article>
+        <div class="current-tag-container">
+            <h2 class="title gt-c-content-color-first">
+                #FCPX
+            </h2>
         </div>
-
+        <div class="post-list-container">
+    <div class="post-inner">
         
-            <div class="next-post">
-                <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://uforz.com/post/next-valine/" class="post-title gt-a-link">
-                    Gridea主题NexT无法正常使用Valine的解决办法
-                </a>
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://uforz.com/post/final-cut-pro-x-10-tips/">
+                            <span class="post-title gt-c-content-color-first">Final Cut Pro X 10个实用小技巧</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2022-02-01 ·
+                        </time>
+                        
+                            <a href="https://uforz.com/tag/Z8sFoBi1y/" class="post-tag">
+                                # FCPX
+                            </a>
+                        
+                    </div>
+                </div>
+                
             </div>
         
-
-        
-
-        
-
-        
-            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
-
-<style>
-	div#vcomments{
-		width:100%;
-		max-width: 1000px;
-		padding: 2.5%
-	}
-</style>
-
-
-	<div id="vcomments"></div>
-
-<script>
-	new Valine({
-		el: '#vcomments',
-		appId: 'nathFna3WtL955SrQbBoWjKn-MdYXbMMI',
-		appKey: 'km2Usr1oa9idpvXMdJpQJIcB',
-		serverURLs:'https://nathfna3.api.lncldglobal.com',
-		avatar: '',
-		pageSize: 5,
-		recordIp: false,
-		placeholder: '既然看到这了，就说两句吧',
-		visitor: false,
-	});
-</script>
-
-        
+    </div>
+</div>
+        <div class="pagination-container">
+    
+    
+</div>
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first">我对这个世界有哀愁，就如我对这个世界的缱绻深情一样</div>
