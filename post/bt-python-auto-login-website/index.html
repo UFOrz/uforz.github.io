@@ -1,0 +1,222 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>宝塔面板定时执行Python，自动登录网站，赚取积分 | UFOrz</title>
+
+<link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1682515908500">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://uforz.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            <a href="/" class="">
+            UFOrz
+            </a>  
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/friends" class="menu gt-a-link">
+                            友链
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1682515908500" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    宝塔面板定时执行Python，自动登录网站，赚取积分
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-01-28 ·
+                    </time>
+                    
+                        <a href="https://uforz.com/tag/khzsLjnc2/" class="post-tags">
+                            # 宝塔
+                        </a>
+                    
+                        <a href="https://uforz.com/tag/oHH53sFrAI/" class="post-tags">
+                            # Python
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>代码参考上篇文章<a href="/post/python-auto-login-website/">《Windows定时运行Python，实现某网站自动登陆，以赚取积分》</a><br>
+在某个目录新建python脚本和log.txt日志文件，python脚本如下：</p>
+<!-- more -->
+<pre><code># -*- coding: UTF-8 -*-
+import json
+import requests
+import datetime
+
+data = {'username':'你的用户名','password':'你的密码'}
+json_data = json.dumps(data) 
+result = requests.post(url='https://www.你的登录网址.com:10065/sys/login/pc',data=json_data,headers={'Content-Type':'application/json'})
+
+ #定义运行日志的路径
+print_log = open(&quot;/www/wwwroot/你的python程序目录/log.txt&quot;,'a')
+
+  #输出运行日志
+print(&quot;请求耗时：{0}, 状态码：{1}, 结果：{2}&quot;.format(datetime.datetime.now(),result.status_code,result.text),file = print_log)
+print_log.close()
+</code></pre>
+<p>宝塔面板添加计划任务，任务类型“shell脚本”，执行周期“每天 8小时 0分钟”<br>
+宝塔面板默认python版本是2.7.5，存在兼容性问题，但执行btpython是3.7.9，所以脚本内容：</p>
+<pre><code>btpython /www/wwwroot/替换你的python程序目录/login.py
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://uforz.com/post/python-auto-login-website/" class="post-title gt-a-link">
+                    Windows定时运行Python，实现某网站自动登陆，以赚取积分
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'nathFna3WtL955SrQbBoWjKn-MdYXbMMI',
+		appKey: 'km2Usr1oa9idpvXMdJpQJIcB',
+		serverURLs:'https://nathfna3.api.lncldglobal.com',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: '既然看到这了，就说两句吧',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">我对这个世界有哀愁，就如我对这个世界的缱绻深情一样</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        ©<a href="https://uforz.com/" target="_blank">UFOrz.com</a> | <a href="https://uforz.com/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

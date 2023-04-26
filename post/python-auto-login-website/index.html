@@ -1,0 +1,223 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Windows定时运行Python，实现某网站自动登陆，以赚取积分 | UFOrz</title>
+
+<link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1682515908500">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://uforz.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            <a href="/" class="">
+            UFOrz
+            </a>  
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/friends" class="menu gt-a-link">
+                            友链
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1682515908500" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Windows定时运行Python，实现某网站自动登陆，以赚取积分
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-01-27 ·
+                    </time>
+                    
+                        <a href="https://uforz.com/tag/oh1b5co-B/" class="post-tags">
+                            # python
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>Edge浏览器打开网站登陆界面，按F12调出控制台，在网络选项的筛选器输入&quot;method:POST&quot;，输入账号密码，点击登陆，查看网络选项里的“请求URL”，确认Content-Type是application/json，查看“PayLoad”选项里的表单数据，应该包含用户名和密码。</p>
+<!-- more -->
+<p>根据上述信息，构造Python代码如下：</p>
+<pre><code>import json
+import requests
+import datetime
+
+data = {'username':'你的用户名','password':'你的密码'}
+json_data = json.dumps(data) 
+result = requests.post(url='https://www.替换成你的网址.com:10065/sys/login/pc',data=json_data,headers={'Content-Type':'application/json'})
+
+ #定义运行日志的路径
+print_log = open(&quot;E:\login\log.txt&quot;,'a')
+
+  #输出运行日志
+print(&quot;请求耗时：{0}, 状态码：{1}, 结果：{2}&quot;.format(datetime.datetime.now(),result.status_code,result.text),file = print_log)
+print_log.close()
+</code></pre>
+<p>新建个日志文本文档“log.txt”，放到Python程序目录，用于存放运行日志，<br>
+新建个文本文档，添加如下内容，将后缀改为.bat，修改文本种路径为你的Python程序所在路径</p>
+<pre><code>@echo off
+E:
+cd E:\login
+start python login.py
+</code></pre>
+<p>在windows的计划任务里添加定时任务，比如每日8：00运行上述bat文件：<br>
+路径：此电脑右键&gt;管理&gt;系统工具&gt;任务计划程序&gt;任务计划程序库&gt;窗口右侧“创建基本任务”</p>
+<p>理论上，完成以上操作，即可实现每日8：00登陆一次网站以实现赚取积分。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://uforz.com/post/next-valine/" class="post-title gt-a-link">
+                    Gridea主题NexT无法正常使用Valine的解决办法
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'nathFna3WtL955SrQbBoWjKn-MdYXbMMI',
+		appKey: 'km2Usr1oa9idpvXMdJpQJIcB',
+		serverURLs:'https://nathfna3.api.lncldglobal.com',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: '既然看到这了，就说两句吧',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">我对这个世界有哀愁，就如我对这个世界的缱绻深情一样</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        ©<a href="https://uforz.com/" target="_blank">UFOrz.com</a> | <a href="https://uforz.com/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

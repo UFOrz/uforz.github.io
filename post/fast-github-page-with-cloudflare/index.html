@@ -1,0 +1,213 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>使用CloudFlare免费加速GitHub Pages博客 | UFOrz</title>
+
+<link rel="shortcut icon" href="https://uforz.com/favicon.ico?v=1682515908500">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://uforz.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            <a href="/" class="">
+            UFOrz
+            </a>  
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/friends" class="menu gt-a-link">
+                            友链
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1682515908500" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    使用CloudFlare免费加速GitHub Pages博客
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-01-24 ·
+                    </time>
+                    
+                        <a href="https://uforz.com/tag/NY81E1nXP/" class="post-tags">
+                            # Github
+                        </a>
+                    
+                        <a href="https://uforz.com/tag/OJ7ylmYEjk/" class="post-tags">
+                            # CloudFlare
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>怎么建立GitHub Pages博客就不再赘述，Google一下有很多教程，因为特殊的网络环境，我们可能需要CloudFlare加速博客的访问，虽然CloudFlare也不太稳定，但聊胜于无。</p>
+<!-- more -->
+<p>首先您需要准备一个顶级域名，并在GitHub Pages后台进行绑定，修改域名后台ns记录为CloudFlare的ns记录：</p>
+<pre><code>NS	eva.ns.cloudflare.com
+NS	gerald.ns.cloudflare.com
+</code></pre>
+<p>然后，通过CloudFlare解析顶级域名A记录到下面地址：</p>
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre>
+<p>正常情况下，只要解析生效，CloudFlare就已经帮你搞定了CDN加速。</p>
+<p>如果需要 SSL/TLS 严格加密模式，可以在解析A记录时暂时将<strong>代理状态</strong>禁用，也就是暂时禁用CDN，解析生效后，在GitHub Pages后台开启Enforce HTTPS ，待Github Pages的https生效后，再将CloudFlare的<strong>代理状态</strong>启用即可。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://uforz.com/post/write-to-hometown/" class="post-title gt-a-link">
+                    写给家乡：离开是为了有尊严的活着
+                </a>
+            </div>
+        
+
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'nathFna3WtL955SrQbBoWjKn-MdYXbMMI',
+		appKey: 'km2Usr1oa9idpvXMdJpQJIcB',
+		serverURLs:'https://nathfna3.api.lncldglobal.com',
+		avatar: '',
+		pageSize: 5,
+		recordIp: false,
+		placeholder: '既然看到这了，就说两句吧',
+		visitor: false,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">我对这个世界有哀愁，就如我对这个世界的缱绻深情一样</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        ©<a href="https://uforz.com/" target="_blank">UFOrz.com</a> | <a href="https://uforz.com/atom.xml" target="_blank">RSS</a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
