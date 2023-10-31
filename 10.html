@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10以内加减法小游戏</title>
+    <style>
+        body {
+            font-size: 24px;
+            text-align: center;
+        }
+        #title {
+            font-size: 36px;
+            margin-top: 20px;
+        }
+        #score {
+            font-size: 36px;
+            display: none;
+        }
+        #question {
+            font-size: 75px;
+            margin-top: 20px;
+            display: none;
+        }
+        #options {
+            display: none;
+        }
+        .option-button {
+            font-size: 36px;
+            padding: 10px 20px;
+        }
+        #timer {
+            font-size: 28px;
+            margin-top: 20px;
+            display: none;
+        }
+        #startButton {
+            font-size: 36px;
+            padding: 20px 40px;
+        }
+        #restartButton {
+            font-size: 24px;
+            padding: 10px 20px;
+            margin-top: 100px;
+            display: none;
+        }
+        #gameOver {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">10以内加减法小游戏</h1>
+    <div id="score">得分: 0</div>
+    <div id="question">问题将在这里显示</div>
+    <div id="options">
+        <button id="option1" class="option-button"></button>
+        <button id="option2" class="option-button"></button>
+        <button id="option3" class="option-button"></button>
+    </div>
+    <div id="timer">倒计时: 60秒</div>
+    <button id="startButton">开始游戏</button>
+    <div id="gameOver" style="display: none;">
+        <h2>游戏结束</h2>
+        <div id="finalScore">最终得分: 0</div>
+        <div id="wrongAnswers">答错题目: </div>
+        <button id="restartButton" onclick="restartGame()">重新开始</button>
+    </div>
+
+    <script>
+        let score = 0;
+        let time = 60;
+        let timer;
+        let correctAnswer;
+        let isGameStarted = false;
+
+        function hideGameElements() {
+            document.getElementById('score').style.display = 'none';
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('options').style.display = 'none';
+            document.getElementById('timer').style.display = 'none';
+        }
+
+        function showGameElements() {
+            document.getElementById('score').style.display = 'block';
+            document.getElementById('question').style.display = 'block';
+            document.getElementById('options').style.display = 'block';
+            document.getElementById('timer').style.display = 'block';
+        }
+
+        function restartGame() {
+            score = 0;
+            time = 60;
+            isGameStarted = false;
+            hideGameElements();
+            document.getElementById('startButton').style.display = 'inline-block';
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('wrongAnswers').textContent = '';
+            document.getElementById('score').textContent = '得分: 0';
+            document.getElementById('timer').textContent = '倒计时: 60秒';
+        }
+
+        // Function to generate a random arithmetic question
+        function generateQuestion() {
+            let num1, num2, operator;
+            do {
+                num1 = Math.floor(Math.random() * 10) + 1;
+                num2 = Math.floor(Math.random() * num1) + 1;
+                operator = Math.random() < 0.5 ? '+' : '-';
+                correctAnswer = operator === '+' ? num1 + num2 : num1 - num2;
+            } while (correctAnswer > 10 || correctAnswer < 0);
+            document.getElementById('question').textContent = `${num1} ${operator} ${num2}`;
+        }
+
+        // Function to generate three random answer options
+        function generateOptions() {
+            const options = [correctAnswer];
+            while (options.length < 3) {
+                const option = Math.floor(Math.random() * 10) + 1;
+                if (!options.includes(option) && option !== correctAnswer) {
+                    options.push(option);
+                }
+            }
+            options.sort(() => Math.random() - 0.5); // Shuffle options
+            document.getElementById('option1').textContent = options[0];
+            document.getElementById('option2').textContent = options[1];
+            document.getElementById('option3').textContent = options[2];
+        }
+
+        // Function to start the game
+        function startGame() {
+            if (!isGameStarted) {
+                isGameStarted = true;
+                showGameElements();
+                timer = setInterval(updateTimer, 1000);
+                document.getElementById('startButton').style.display = 'none';
+                generateQuestion();
+                generateOptions();
+            }
+        }
+
+        // Function to update the timer
+        function updateTimer() {
+            time--;
+            document.getElementById('timer').textContent = `倒计时: ${time}秒`;
+            if (time === 0) {
+                endGame();
+            }
+        }
+
+        // Function to end the game
+        function endGame() {
+            hideGameElements();
+            clearInterval(timer);
+            document.getElementById('gameOver').style.display = 'block';
+            document.getElementById('finalScore').textContent = `最终得分: ${score}`;
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('restartButton').style.display = 'inline-block';
+        }
+
+        // Function to handle option selection
+        function selectOption(option) {
+            if (option === correctAnswer) {
+                score++;
+                document.getElementById('score').textContent = `得分: ${score}`;
+            } else {
+                const wrongAnswers = document.getElementById('wrongAnswers');
+                wrongAnswers.textContent += ` ${document.getElementById('question').textContent}, `;
+            }
+            generateQuestion();
+            generateOptions();
+        }
+
+        // Event listeners
+        document.getElementById('startButton').addEventListener('click', startGame);
+        document.getElementById('option1').addEventListener('click', () => selectOption(Number(document.getElementById('option1').textContent)));
+        document.getElementById('option2').addEventListener('click', () => selectOption(Number(document.getElementById('option2').textContent)));
+        document.getElementById('option3').addEventListener('click', () => selectOption(Number(document.getElementById('option3').textContent)));
+    </script>
+</body>
+</html>
