@@ -21,6 +21,23 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             text-align: center;
         }
+        #question {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 0px;
+        }
+        #question-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0px;
+        }
+        #answer {
+            font-size: 24px;
+            width: 80px;
+            text-align: center;
+            margin-left: 10px;
+        }
         input, button {
             font-size: 16px;
             padding: 5px 10px;
@@ -29,6 +46,8 @@
         #feedback {
             font-weight: bold;
             margin-top: 10px;
+            height: 24px; /* 固定高度 */
+            line-height: 24px; /* 垂直居中 */
         }
         .correct { color: green; }
         .incorrect { color: red; }
@@ -57,8 +76,11 @@
 <body>
     <div id="game-container">
         <h1>100以内加减法小游戏</h1>
-        <div id="question"></div>
-        <input type="number" id="answer" placeholder="输入你的答案" readonly>
+        <div id="question-container">
+            <div id="question"></div>
+            <input type="number" id="answer" placeholder="答案？" readonly>
+        </div>
+        <div id="feedback"></div>
         <div class="keyboard">
             <button class="key" onclick="appendAnswer(1)">1</button>
             <button class="key" onclick="appendAnswer(2)">2</button>
@@ -74,7 +96,6 @@
             <button class="key" onclick="checkAnswer()">提交</button>
         </div>
         <div id="score">得分: 0 / 10</div>
-        <div id="feedback"></div>
     </div>
     <div id="end-game">
         <h2>游戏结束!</h2>
@@ -102,7 +123,7 @@
 
         function displayQuestion() {
             currentQuestion = generateQuestion();
-            document.getElementById('question').textContent = `${currentQuestion.question} = ?`;
+            document.getElementById('question').textContent = `${currentQuestion.question} = `;
             document.getElementById('answer').value = '';
             document.getElementById('feedback').textContent = '';
         }
