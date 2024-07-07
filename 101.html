@@ -32,20 +32,60 @@
         }
         .correct { color: green; }
         .incorrect { color: red; }
+        #end-game {
+            display: none;
+        }
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .key {
+            font-size: 16px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+        }
+        .key:active {
+            background-color: #ccc;
+        }
     </style>
 </head>
 <body>
     <div id="game-container">
         <h1>100以内加减法小游戏</h1>
         <div id="question"></div>
-        <input type="number" id="answer" placeholder="输入你的答案">
-        <button onclick="checkAnswer()">提交</button>
+        <input type="number" id="answer" placeholder="输入你的答案" readonly>
+        <div class="keyboard">
+            <button class="key" onclick="appendAnswer(1)">1</button>
+            <button class="key" onclick="appendAnswer(2)">2</button>
+            <button class="key" onclick="appendAnswer(3)">3</button>
+            <button class="key" onclick="appendAnswer(4)">4</button>
+            <button class="key" onclick="appendAnswer(5)">5</button>
+            <button class="key" onclick="appendAnswer(6)">6</button>
+            <button class="key" onclick="appendAnswer(7)">7</button>
+            <button class="key" onclick="appendAnswer(8)">8</button>
+            <button class="key" onclick="appendAnswer(9)">9</button>
+            <button class="key" onclick="appendAnswer(0)">0</button>
+            <button class="key" onclick="deleteAnswer()">删除</button>
+            <button class="key" onclick="checkAnswer()">提交</button>
+        </div>
         <div id="score">得分: 0 / 10</div>
         <div id="feedback"></div>
+    </div>
+    <div id="end-game">
+        <h2>游戏结束!</h2>
+        <div id="final-score"></div>
+        <div id="incorrect-questions"></div>
+        <button onclick="resetGame()">重新开始</button>
     </div>
 
     <script>
         let currentQuestion, score = 0, totalQuestions = 0;
+        let questions = [];
 
         function generateQuestion() {
             let num1, num2, operation, answer;
@@ -71,14 +111,24 @@
             const userAnswer = parseInt(document.getElementById('answer').value);
             const feedback = document.getElementById('feedback');
             
+            let questionObj = {
+                question: currentQuestion.question,
+                correctAnswer: currentQuestion.answer,
+                userAnswer: userAnswer
+            };
+
             if (userAnswer === currentQuestion.answer) {
                 feedback.textContent = "正确!";
                 feedback.className = "correct";
                 score++;
+                questionObj.correct = true;
             } else {
                 feedback.textContent = `错误! 正确答案是 ${currentQuestion.answer}`;
                 feedback.className = "incorrect";
+                questionObj.correct = false;
             }
+
+            questions.push(questionObj);
 
             totalQuestions++;
             document.getElementById('score').textContent = `得分: ${score} / ${totalQuestions}`;
@@ -86,18 +136,41 @@
             if (totalQuestions < 10) {
                 setTimeout(displayQuestion, 1500);
             } else {
-                setTimeout(() => {
-                    alert(`游戏结束! 你的最终得分是 ${score} / 10`);
-                    resetGame();
-                }, 1500);
+                setTimeout(endGame, 1500);
             }
+        }
+
+        function endGame() {
+            document.getElementById('final-score').textContent = `你的最终得分是 ${score} / 10`;
+            const incorrectQuestions = questions.filter(q => !q.correct);
+            let incorrectQuestionsHTML = '<h3>错误题目及正确答案:</h3><ul>';
+            incorrectQuestions.forEach(q => {
+                incorrectQuestionsHTML += `<li>${q.question} = ${q.correctAnswer} (你的答案: ${q.userAnswer})</li>`;
+            });
+            incorrectQuestionsHTML += '</ul>';
+            document.getElementById('incorrect-questions').innerHTML = incorrectQuestionsHTML;
+            document.getElementById('end-game').style.display = 'block';
+            document.getElementById('game-container').style.display = 'none';
         }
 
         function resetGame() {
             score = 0;
             totalQuestions = 0;
+            questions = [];
             document.getElementById('score').textContent = "得分: 0 / 10";
+            document.getElementById('end-game').style.display = 'none';
+            document.getElementById('game-container').style.display = 'block';
             displayQuestion();
+        }
+
+        function appendAnswer(num) {
+            const answerField = document.getElementById('answer');
+            answerField.value = answerField.value + num;
+        }
+
+        function deleteAnswer() {
+            const answerField = document.getElementById('answer');
+            answerField.value = answerField.value.slice(0, -1);
         }
 
         displayQuestion();
